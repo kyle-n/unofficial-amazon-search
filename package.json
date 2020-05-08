@@ -28,6 +28,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/isomorphic-fetch": "0.0.35",
+    "@types/jsdom": "^16.2.1",
     "@types/node": "^13.13.5",
     "path": "^0.12.7",
     "webpack": "^4.43.0",
