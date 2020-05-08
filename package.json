@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/kyle-n/unofficial-amazon-search/issues"
   },
-  "homepage": "https://github.com/kyle-n/unofficial-amazon-search#readme"
+  "homepage": "https://github.com/kyle-n/unofficial-amazon-search#readme",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "jsdom": "^16.2.2"
+  }
 }
