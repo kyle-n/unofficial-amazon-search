@@ -1,0 +1,21 @@
+{
+  "name": "unofficial-amazon-search",
+  "version": "1.0.0",
+  "description": "A simple client for searching Amazon",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Kyle Nazario",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyle-n/unofficial-amazon-search.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/kyle-n/unofficial-amazon-search/issues"
+  },
+  "homepage": "https://github.com/kyle-n/unofficial-amazon-search#readme"
+}
