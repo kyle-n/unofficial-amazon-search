@@ -1,3 +1,4 @@
-dist
+lib*
+_bundles
 node_modules
 .idea
