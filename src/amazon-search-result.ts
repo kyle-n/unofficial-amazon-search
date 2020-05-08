@@ -1,21 +1,9 @@
-interface AmazonSearchResultAttributes {
-  title: string;
-  productUrl: string;
-  imageUrl: string;
-  rating: [number, number];
-  prices: any;
-  extraAttributes: any;
-  subtext: string[];
-}
-
-export default class AmazonSearchResult implements AmazonSearchResultAttributes {
+export default class AmazonSearchResult {
   private _title: string = '';
   private _productUrl: string = '';
   private _imageUrl: string = '';
   private _rating: [number, number] = [-1, -1];
   private _prices: any = null;
-  private _extraAttributes: any = null;
-  private _subtext: string[] = [];
 
   private static extractPrices(block: Element): Record<string, number> {
     const subheads: HTMLSpanElement[] = Array.from(
@@ -93,17 +81,4 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
     this._prices = prices;
   }
 
-  get extraAttributes(): any {
-    return this._extraAttributes;
-  }
-  set extraAttributes(extraAttributes: any) {
-    this._extraAttributes = extraAttributes;
-  }
-
-  get subtext(): string[] {
-    return this._subtext;
-  }
-  set subtext(subtext: string[]) {
-    this._subtext = subtext;
-  }
 }
