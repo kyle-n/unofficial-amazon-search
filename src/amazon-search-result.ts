@@ -9,6 +9,16 @@ export default class AmazonSearchResult {
   private _imageUrl: string = '';
   private _rating: [number, number] = [-1, -1];
   private _prices: Price[] = [];
+  private _sponsored: boolean = false;
+
+  private static extractIsSponsored(block: Element): boolean {
+    const sponsorBlock = block.querySelector('.s-info-icon');
+    if (!sponsorBlock) {
+      return false;
+    } else {
+      return sponsorBlock.parentElement?.parentElement?.textContent?.toLowerCase().includes('sponsored') || false;
+    }
+  }
 
   private static extractPrices(block: Element): Price[] {
     const subheads: HTMLSpanElement[] = Array.from(
@@ -55,6 +65,7 @@ export default class AmazonSearchResult {
     this.productUrl = block.querySelector('a')?.getAttribute('href') || '';
     this.rating = AmazonSearchResult.extractRating(block);
     this.prices = AmazonSearchResult.extractPrices(block);
+    this.sponsored = AmazonSearchResult.extractIsSponsored(block);
   }
 
   get title(): string {
@@ -90,6 +101,13 @@ export default class AmazonSearchResult {
   }
   set prices(prices: Price[]) {
     this._prices = prices;
+  }
+
+  get sponsored(): boolean {
+    return this._sponsored;
+  }
+  set sponsored(sponsored: boolean) {
+    this._sponsored = sponsored;
   }
 
 }
