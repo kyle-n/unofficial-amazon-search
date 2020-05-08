@@ -22,7 +22,8 @@
   "homepage": "https://github.com/kyle-n/unofficial-amazon-search#readme",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "jsdom": "^16.2.2"
+    "jsdom": "^16.2.2",
+    "jsonp-client": "^1.2.2"
   },
   "type": "commonjs",
   "devDependencies": {
