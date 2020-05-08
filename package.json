@@ -25,6 +25,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/isomorphic-fetch": "0.0.35",
-    "webpack": "^4.43.0"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   }
 }
