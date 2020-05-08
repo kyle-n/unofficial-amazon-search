@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -f dist/index* && tsc"
+    "clean": "rm -f dist/*.js* && rm -f dist/*.ts*",
+    "compile": "tsc && webpack --config webpack.config.js",
+    "build": "npm run clean && npm run compile"
   },
   "author": "Kyle Nazario",
   "license": "MIT",
