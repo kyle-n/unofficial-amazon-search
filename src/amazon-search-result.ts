@@ -3,6 +3,12 @@ interface Price {
   label: string | null;
 }
 
+/**
+ * @class AmazonSearchResult
+ * @description An object containing common properties that can be scraped from different Amazon search result
+ * formats.
+ * @public
+ */
 export default class AmazonSearchResult {
   private _title: string = '';
   private _productUrl: string = '';
@@ -20,6 +26,7 @@ export default class AmazonSearchResult {
     }
   }
 
+  // not all prices have corresponding subheads
   private static extractPrices(block: Element): Price[] {
     const subheads: HTMLSpanElement[] = Array.from(
       block.querySelectorAll('a.a-text-bold.a-link-normal')
