@@ -6,10 +6,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -f dist/*.js* && rm -f dist/*.ts*",
-    "compile": "tsc && webpack --config webpack.node.config.js",
     "build": "npm run clean && npm run compile",
     "build-dev": "npm run clean && npm run compile-dev",
-    "compile-dev": "tsc && webpack.dev.config.js"
+    "compile": "tsc && webpack --config webpack.browser.config.js",
+    "compile-dev": "tsc && webpack --config webpack.dev.config.js"
   },
   "author": "Kyle Nazario",
   "license": "MIT",
