@@ -2,7 +2,7 @@ interface AmazonSearchResultAttributes {
   title: string;
   productUrl: string;
   imageUrl: string;
-  rating: string;
+  rating: [number, number];
   prices: any;
   extraAttributes: any;
   subtext: string[];
@@ -12,7 +12,7 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
   private _title: string = '';
   private _productUrl: string = '';
   private _imageUrl: string = '';
-  private _rating: string = '';
+  private _rating: [number, number] = [-1, -1];
   private _prices: any = null;
   private _extraAttributes: any = null;
   private _subtext: string[] = [];
@@ -41,10 +41,10 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
     this._imageUrl = imageUrl;
   }
 
-  get rating(): string {
+  get rating(): [number, number] {
     return this._rating;
   }
-  set rating(rating: string) {
+  set rating(rating: [number, number]) {
     this._rating = rating;
   }
 

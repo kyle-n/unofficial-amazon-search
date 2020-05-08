@@ -11,7 +11,8 @@ function extractResults(virtualDom: JSDOM): AmazonSearchResult[] {
     parsedResult.productUrl = searchResultBlock.querySelector('a img')?.getAttribute('src') || '';
     parsedResult.productUrl = ('https://www.amazon.com' + searchResultBlock.querySelector('a')?.getAttribute('href')) || '';
     parsedResult.subtext = [''];
-    parsedResult.rating = '';
+    parsedResult.rating = searchResultBlock.querySelector('i.a-icon-star-small')?.textContent?.match(/\d(\.\d)?/g)
+      ?.map(match => parseFloat(match)) as any || [-1, -1];
     parsedResult.prices = null;
     parsedResult.extraAttributes = null;
     return parsedResult;
