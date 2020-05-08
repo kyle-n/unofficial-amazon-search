@@ -26,7 +26,10 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
     ).map(elem => elem.parentElement?.textContent?.trim() || '');
     return subheads.reduce((prices: Record<string, number>, subhead: HTMLSpanElement, i: number) => {
       const priceString = priceStrings[i];
-      prices[subhead.innerHTML.trim()] = parseFloat(priceString.replace(/[^\d.]/g, ''));
+      const key: string = subhead.textContent?.trim() || '';
+      if (key) {
+        prices[key] = parseFloat(priceString.replace(/[^\d.]/g, ''));
+      }
       return prices;
     }, {});
   }
