@@ -17,7 +17,27 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
   private _extraAttributes: any = null;
   private _subtext: string[] = [];
 
-  constructor() {
+  private static extractRating(block: Element): [number, number] {
+    const numbers = block.querySelector('i.a-icon-star-small')?.textContent?.match(/\d(\.\d)?/g)
+      ?.map(match => parseFloat(match)) || [-1, -1];
+    switch (numbers.length) {
+      case 0:
+        return [-1, -1];
+      case 1:
+        numbers.push(-1);
+        return numbers as [number, number];
+      case 2:
+        return numbers as [number, number];
+      default:
+        return numbers.slice(0, 2) as [number, number];
+    }
+  }
+
+  constructor(block: Element) {
+    this.title = block.querySelector('h2')?.textContent?.trim() || '';
+    this.imageUrl = block.querySelector('a img')?.getAttribute('src') || '';
+    this.productUrl = ('https://www.amazon.com' + block.querySelector('a')?.getAttribute('href')) || '';
+    this.rating = AmazonSearchResult.extractRating(block);
   }
 
   get title(): string {

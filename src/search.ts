@@ -6,16 +6,7 @@ function extractResults(virtualDom: JSDOM): AmazonSearchResult[] {
   const resultNodeList = virtualDom.window.document.querySelectorAll('div[data-component-type="s-search-result"]');
   const searchResultBlocks: Element[] = Array.from(resultNodeList);
   return searchResultBlocks.map(searchResultBlock => {
-    const parsedResult = new AmazonSearchResult();
-    parsedResult.title = searchResultBlock.querySelector('h2')?.textContent?.trim() || '';
-    parsedResult.productUrl = searchResultBlock.querySelector('a img')?.getAttribute('src') || '';
-    parsedResult.productUrl = ('https://www.amazon.com' + searchResultBlock.querySelector('a')?.getAttribute('href')) || '';
-    parsedResult.subtext = [''];
-    parsedResult.rating = searchResultBlock.querySelector('i.a-icon-star-small')?.textContent?.match(/\d(\.\d)?/g)
-      ?.map(match => parseFloat(match)) as any || [-1, -1];
-    parsedResult.prices = null;
-    parsedResult.extraAttributes = null;
-    return parsedResult;
+    return new AmazonSearchResult(searchResultBlock);
   });
 }
 
