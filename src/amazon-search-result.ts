@@ -3,6 +3,11 @@ interface Price {
   label: string | null;
 }
 
+interface Rating {
+  score: number | null;
+  outOf: number | null;
+}
+
 /**
  * @class AmazonSearchResult
  * @description An object containing common properties that can be scraped from different Amazon search result
@@ -11,8 +16,7 @@ interface Price {
  * @property {string} title - Name of product
  * @property {string} productUrl - URL for product details page
  * @property {string} imageUrl - lead product image that shows in search results
- * @property {Array.<[number, number]>} rating - First val is rating, second val is max score, -1 for either means the
- * value could not be found
+ * @property {Array.<Rating>} rating - Score out of a total value
  * @property {Array.<Price>} prices - Search often lists multiple prices for versions of an item. This is a set of all
  * found prices, some of which have labels attached (for example, if you search a DVD barcode number, there are multiple
  * prices, for DVD, Blu-ray and 4K, and each has a label like "4K"). Price label is null if cannot find it on page
@@ -22,7 +26,7 @@ export default class AmazonSearchResult {
   private _title: string = '';
   private _productUrl: string = '';
   private _imageUrl: string = '';
-  private _rating: [number, number] = [-1, -1];
+  private _rating: Rating = {score: null, outOf: null};
   private _prices: Price[] = [];
   private _sponsored: boolean = false;
 
@@ -59,19 +63,16 @@ export default class AmazonSearchResult {
     }, []);
   }
 
-  private static extractRating(block: Element): [number, number] {
+  private static extractRating(block: Element): Rating {
     const numbers = block.querySelector('i.a-icon-star-small')?.textContent?.match(/\d(\.\d)?/g)
       ?.map(match => parseFloat(match)) || [-1, -1];
     switch (numbers.length) {
       case 0:
-        return [-1, -1];
+        return {score: -1, outOf: -1}
       case 1:
-        numbers.push(-1);
-        return numbers as [number, number];
-      case 2:
-        return numbers as [number, number];
+        return {score: numbers[0], outOf: -1};
       default:
-        return numbers.slice(0, 2) as [number, number];
+        return {score: numbers[0], outOf: numbers[1]}
     }
   }
 
@@ -105,10 +106,10 @@ export default class AmazonSearchResult {
     this._imageUrl = imageUrl;
   }
 
-  get rating(): [number, number] {
+  get rating(): Rating {
     return this._rating;
   }
-  set rating(rating: [number, number]) {
+  set rating(rating: Rating) {
     this._rating = rating;
   }
 
