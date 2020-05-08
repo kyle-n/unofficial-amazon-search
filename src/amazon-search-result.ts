@@ -17,6 +17,20 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
   private _extraAttributes: any = null;
   private _subtext: string[] = [];
 
+  private static extractPrices(block: Element): Record<string, number> {
+    const subheads: HTMLSpanElement[] = Array.from(
+      block.querySelectorAll('a.a-text-bold.a-link-normal')
+    ) as HTMLSpanElement[];
+    const priceStrings: string[] = Array.from(
+      block.querySelectorAll('.a-price-whole')
+    ).map(elem => elem.parentElement?.textContent?.trim() || '');
+    return subheads.reduce((prices: Record<string, number>, subhead: HTMLSpanElement, i: number) => {
+      const priceString = priceStrings[i];
+      prices[subhead.innerHTML.trim()] = parseFloat(priceString.replace(/[^\d.]/g, ''));
+      return prices;
+    }, {});
+  }
+
   private static extractRating(block: Element): [number, number] {
     const numbers = block.querySelector('i.a-icon-star-small')?.textContent?.match(/\d(\.\d)?/g)
       ?.map(match => parseFloat(match)) || [-1, -1];
@@ -36,8 +50,9 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
   constructor(block: Element) {
     this.title = block.querySelector('h2')?.textContent?.trim() || '';
     this.imageUrl = block.querySelector('a img')?.getAttribute('src') || '';
-    this.productUrl = ('https://www.amazon.com' + block.querySelector('a')?.getAttribute('href')) || '';
+    this.productUrl = block.querySelector('a')?.getAttribute('href') || '';
     this.rating = AmazonSearchResult.extractRating(block);
+    this.prices = AmazonSearchResult.extractPrices(block);
   }
 
   get title(): string {
@@ -48,7 +63,7 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
   }
 
   get productUrl(): string {
-    return this._productUrl;
+    return 'https://www.amazon.com' + this._productUrl;
   }
   set productUrl(productUrl: string) {
     this._productUrl = productUrl;
