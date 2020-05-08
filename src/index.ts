@@ -1,8 +1,2 @@
-import searchAmazon from './search';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('searched!')
-    searchAmazon('031398276401').then(x => {
-      console.log(x, 'raw resp')
-    });
-  });
+export {default as searchAmazon} from './search';
+export {default as AmazonSearchResult} from './amazon-search-result';
