@@ -12,5 +12,8 @@ module.exports = {
     'child_process': 'empty',
     net: 'empty',
     tls: 'empty'
+  },
+  optimization: {
+    minimize: false
   }
 }

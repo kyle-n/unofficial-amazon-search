@@ -8,6 +8,7 @@
     "clean": "rm -f dist/*.js* && rm -f dist/*.ts*",
     "compile": "tsc && webpack --config webpack.config.js",
     "build": "npm run clean && npm run compile",
+    "build-dev": "npm run clean && npm run compile-dev",
     "compile-dev": "tsc && webpack.dev.config.js"
   },
   "author": "Kyle Nazario",
