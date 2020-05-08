@@ -9,15 +9,15 @@ interface AmazonSearchResultAttributes {
 }
 
 export default class AmazonSearchResult implements AmazonSearchResultAttributes {
-  private _title: string;
-  private _productUrl: string;
-  private _imageUrl: string;
-  private _rating: string;
-  private _prices: any;
-  private _extraAttributes: any;
-  private _subtext: string;
+  private _title: string = '';
+  private _productUrl: string = '';
+  private _imageUrl: string = '';
+  private _rating: string = '';
+  private _prices: any = null;
+  private _extraAttributes: any = null;
+  private _subtext: string = '';
 
-  constructor(initialValues?: AmazonSearchResultAttributes) {
+  constructor() {
   }
 
   get title(): string {
