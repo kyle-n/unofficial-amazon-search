@@ -10,8 +10,12 @@ function extractResults(virtualDom: JSDOM): AmazonSearchResult[] {
   });
 }
 
-export default async function searchAmazon(query: string): Promise<AmazonSearchResult[]> {
+export default async function searchAmazon(query: string, includeSponsoredResults?: boolean): Promise<AmazonSearchResult[]> {
   const resp = await fetch(`https://www.amazon.com/s?k=${encodeURIComponent(query)}&ref=nb_sb_noss`);
   const pageText = await resp.text();
-  return extractResults(new JSDOM(pageText));
+  let searchResults = extractResults(new JSDOM(pageText));
+  if (!includeSponsoredResults) {
+    searchResults = searchResults.filter(result => !result.sponsored);
+  }
+  return searchResults;
 }
