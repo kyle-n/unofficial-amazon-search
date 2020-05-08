@@ -5,11 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "rm -f dist/*.js* && rm -f dist/*.ts*",
-    "build": "npm run clean && npm run compile",
-    "build-dev": "npm run clean && npm run compile-dev",
-    "compile": "tsc && webpack --config webpack.browser.config.js",
-    "compile-dev": "tsc && webpack --config webpack.dev.config.js"
+    "compile": "tsc && tsc -m es6 --outDir lib-esm && webpack",
+    "clean": "shx rm -rf _bundles lib lib-esm",
+    "build": "npm run clean && npm run compile"
   },
   "author": "Kyle Nazario",
   "license": "MIT",
@@ -33,6 +31,9 @@
     "@types/jsdom": "^16.2.1",
     "@types/node": "^13.13.5",
     "path": "^0.12.7",
+    "shx": "^0.3.2",
+    "ts-loader": "^7.0.3",
+    "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   }
