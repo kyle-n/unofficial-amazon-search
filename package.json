@@ -2,8 +2,8 @@
   "name": "unofficial-amazon-search",
   "version": "1.0.0",
   "description": "A simple client for searching Amazon",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib-esm/index.js",
+  "types": "lib-esm/index.d.ts",
   "scripts": {
     "compile": "tsc && tsc -m es6 --outDir lib-esm && webpack",
     "clean": "shx rm -rf _bundles lib lib-esm",
