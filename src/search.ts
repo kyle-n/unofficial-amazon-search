@@ -10,7 +10,7 @@ function extractResults(virtualDom: JSDOM): AmazonSearchResult[] {
     parsedResult.title = searchResultBlock.querySelector('h2')?.textContent?.trim() || '';
     parsedResult.productUrl = searchResultBlock.querySelector('a img')?.getAttribute('src') || '';
     parsedResult.productUrl = ('https://www.amazon.com' + searchResultBlock.querySelector('a')?.getAttribute('href')) || '';
-    parsedResult.subtext = '';
+    parsedResult.subtext = [''];
     parsedResult.rating = '';
     parsedResult.prices = null;
     parsedResult.extraAttributes = null;

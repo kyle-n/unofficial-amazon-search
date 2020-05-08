@@ -5,7 +5,7 @@ interface AmazonSearchResultAttributes {
   rating: string;
   prices: any;
   extraAttributes: any;
-  subtext: string;
+  subtext: string[];
 }
 
 export default class AmazonSearchResult implements AmazonSearchResultAttributes {
@@ -15,7 +15,7 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
   private _rating: string = '';
   private _prices: any = null;
   private _extraAttributes: any = null;
-  private _subtext: string = '';
+  private _subtext: string[] = [];
 
   constructor() {
   }
@@ -62,10 +62,10 @@ export default class AmazonSearchResult implements AmazonSearchResultAttributes 
     this._extraAttributes = extraAttributes;
   }
 
-  get subtext(): string {
+  get subtext(): string[] {
     return this._subtext;
   }
-  set subtext(subtext: string) {
+  set subtext(subtext: string[]) {
     this._subtext = subtext;
   }
 }
