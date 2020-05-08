@@ -8,6 +8,15 @@ interface Price {
  * @description An object containing common properties that can be scraped from different Amazon search result
  * formats.
  * @public
+ * @property {string} title - Name of product
+ * @property {string} productUrl - URL for product details page
+ * @property {string} imageUrl - lead product image that shows in search results
+ * @property {Array.<[number, number]>} rating - First val is rating, second val is max score, -1 for either means the
+ * value could not be found
+ * @property {Array.<Price>} prices - Search often lists multiple prices for versions of an item. This is a set of all
+ * found prices, some of which have labels attached (for example, if you search a DVD barcode number, there are multiple
+ * prices, for DVD, Blu-ray and 4K, and each has a label like "4K"). Price label is null if cannot find it on page
+ * @property {boolean} sponsored - whether result is an ad
  */
 export default class AmazonSearchResult {
   private _title: string = '';
