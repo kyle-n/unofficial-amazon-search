@@ -5,5 +5,6 @@ module.exports = {
   output: {
     filename: 'index.min.js',
     path: path.resolve(__dirname, 'dist')
-  }
+  },
+  mode: 'development'
 }
