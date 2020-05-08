@@ -2,11 +2,11 @@
   "name": "unofficial-amazon-search",
   "version": "1.0.0",
   "description": "A simple client for searching Amazon",
-  "main": "lib-esm/index.js",
-  "types": "lib-esm/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "compile": "tsc && tsc -m es6 --outDir lib-esm && webpack",
-    "clean": "shx rm -rf _bundles lib lib-esm",
+    "compile": "tsc && webpack",
+    "clean": "shx rm -rf _bundles lib",
     "build": "npm run clean && npm run compile"
   },
   "author": "Kyle Nazario",
