@@ -1,25 +1,36 @@
+interface Price {
+  price: number;
+  label: string | null;
+}
+
 export default class AmazonSearchResult {
   private _title: string = '';
   private _productUrl: string = '';
   private _imageUrl: string = '';
   private _rating: [number, number] = [-1, -1];
-  private _prices: any = null;
+  private _prices: Price[] = [];
 
-  private static extractPrices(block: Element): Record<string, number> {
+  private static extractPrices(block: Element): Price[] {
     const subheads: HTMLSpanElement[] = Array.from(
       block.querySelectorAll('a.a-text-bold.a-link-normal')
     ) as HTMLSpanElement[];
-    const priceStrings: string[] = Array.from(
+    const priceStrings: Array<string | undefined> = Array.from(
       block.querySelectorAll('.a-price-whole')
     ).map(elem => elem.parentElement?.textContent?.trim() || '');
-    return subheads.reduce((prices: Record<string, number>, subhead: HTMLSpanElement, i: number) => {
-      const priceString = priceStrings[i];
-      const key: string = subhead.textContent?.trim() || '';
-      if (key) {
-        prices[key] = parseFloat(priceString.replace(/[^\d.]/g, ''));
+    return priceStrings.reduce((prices: Price[], priceString: string | undefined, i: number) => {
+      let subhead: Element | undefined;
+      if (i < subheads.length) {
+        subhead = subheads[i];
+      }
+      const key: string = subhead?.textContent?.trim() || '';
+      if (priceString) {
+        prices.push({
+          price: parseFloat(priceString.replace(/[^\d.]/g, '')),
+          label: key ? key : null
+        });
       }
       return prices;
-    }, {});
+    }, []);
   }
 
   private static extractRating(block: Element): [number, number] {
@@ -74,10 +85,10 @@ export default class AmazonSearchResult {
     this._rating = rating;
   }
 
-  get prices(): any {
+  get prices(): Price[] {
     return this._prices;
   }
-  set prices(prices: any) {
+  set prices(prices: Price[]) {
     this._prices = prices;
   }
 
