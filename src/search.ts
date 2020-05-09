@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import {JSDOM} from 'jsdom';
 import AmazonSearchResult from './amazon-search-result';
-// @ts-ignore
 import {isBrowser} from 'browser-or-node';
 
 interface AllOriginsResponse {
@@ -46,10 +45,13 @@ function queryToProxiedRequest(query: string): string {
  * @param {boolean=} includeSponsoredResults - Filters sponsored results by default
  * @returns {Promise<Array.<AmazonSearchResult>>}
  */
-export default async function searchAmazon(query: string, includeSponsoredResults?: boolean): Promise<AmazonSearchResult[]> {
+export default async function searchAmazon(
+  query: string,
+  includeSponsoredResults?: boolean
+): Promise<AmazonSearchResult[]> {
   let pageHtml: string;
   if (isBrowser) {
-    const resp = await fetch(queryToProxiedRequest(query));
+    const resp: Response = await fetch(queryToProxiedRequest(query));
     const body: AllOriginsResponse = await resp.json();
     pageHtml = body.contents;
   } else {
