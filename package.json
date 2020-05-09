@@ -27,6 +27,7 @@
   },
   "type": "commonjs",
   "devDependencies": {
+    "@types/browser-or-node": "^1.2.0",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jsdom": "^16.2.1",
     "@types/node": "^13.13.5",
