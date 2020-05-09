@@ -1,7 +1,22 @@
 import fetch from 'isomorphic-fetch';
+import {isBrowser} from 'browser-or-node';
+
+/**
+ * Polyfills SharedArrayBuffer, which is disabled in Firefox (off by default), IE, Opera, Safari, and a whole host of
+ * other browsers because of Spectre vulnerability exploits.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer
+ */
+if (isBrowser) {
+  const sab: any = function () {};
+  sab.prototype.byteLength = {};
+  sab.prototype.byteLength.get = () => {
+    throw new Error('Browser does not support SharedArrayBuffer');
+  };
+  window.SharedArrayBuffer = sab;
+}
+
 import {JSDOM} from 'jsdom';
 import AmazonSearchResult from './amazon-search-result';
-import {isBrowser} from 'browser-or-node';
 
 interface AllOriginsResponse {
   contents: string; // html string
