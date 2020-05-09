@@ -21,11 +21,13 @@
   },
   "homepage": "https://github.com/kyle-n/unofficial-amazon-search#readme",
   "dependencies": {
+    "browser-or-node": "^1.2.1",
     "isomorphic-fetch": "^2.2.1",
     "jsdom": "^16.2.2"
   },
   "type": "commonjs",
   "devDependencies": {
+    "@types/browser-or-node": "^1.2.0",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jsdom": "^16.2.1",
     "@types/node": "^13.13.5",
