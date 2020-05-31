@@ -6,5 +6,5 @@ LICENSE
 package*
 *.md
 *.json
-*.js
+webpack.config.js
 *.html
