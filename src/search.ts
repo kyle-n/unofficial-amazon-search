@@ -1,5 +1,8 @@
 import fetch from 'isomorphic-fetch';
 import {isBrowser} from 'browser-or-node';
+import {JSDOM} from 'jsdom';
+import AmazonSearchResult from './amazon-search-result';
+import htmlStringToDOMElement from './dom-parser';
 
 /**
  * Polyfills SharedArrayBuffer, which is disabled in Firefox (off by default), IE, Opera, Safari, and a whole host of
@@ -15,9 +18,6 @@ if (isBrowser) {
   window.SharedArrayBuffer = sab;
 }
 
-import {JSDOM} from 'jsdom';
-import AmazonSearchResult from './amazon-search-result';
-
 interface AllOriginsResponse {
   contents: string; // html string
   status: {
@@ -32,11 +32,11 @@ interface AllOriginsResponse {
 /**
  * @name extractResults
  * @description Converts raw HTML to AmazonSearchResult instances for easier parsing
- * @param {JSDOM} virtualDom - JSDOM instance of search results page
+ * @param {ParentNode} elem - Node element containing search results, whether real DOM or JSDOM
  * @returns {Array.<AmazonSearchResult>}
  */
-function extractResults(virtualDom: JSDOM): AmazonSearchResult[] {
-  const resultNodeList = virtualDom.window.document.querySelectorAll('div[data-component-type="s-search-result"]');
+function extractResults(elem: ParentNode): AmazonSearchResult[] {
+  const resultNodeList = elem.querySelectorAll('div[data-component-type="s-search-result"]');
   const searchResultBlocks: Element[] = Array.from(resultNodeList);
   return searchResultBlocks.map(searchResultBlock => {
     return new AmazonSearchResult(searchResultBlock);
@@ -64,16 +64,18 @@ export default async function searchAmazon(
   query: string,
   includeSponsoredResults?: boolean
 ): Promise<AmazonSearchResult[]> {
-  let pageHtml: string;
+  let searchResults: Array<AmazonSearchResult>;
   if (isBrowser) {
     const resp: Response = await fetch(queryToProxiedRequest(query));
     const body: AllOriginsResponse = await resp.json();
-    pageHtml = body.contents;
+    const pageHtml = body.contents;
+    searchResults = extractResults(htmlStringToDOMElement(pageHtml));
   } else {
     const resp: Response = await fetch(queryToRequest(query));
-    pageHtml = await resp.text();
+    const pageHtml = await resp.text();
+    const virtualDOM = new JSDOM(pageHtml);
+    searchResults = extractResults(virtualDOM.window.document);
   }
-  let searchResults = extractResults(new JSDOM(pageHtml))
   if (!includeSponsoredResults) {
     searchResults = searchResults.filter(result => !result.sponsored);
   }

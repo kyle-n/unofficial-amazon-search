@@ -1,6 +1,10 @@
 .*
-**/tsconfig.json
-**/webpack.config.js
+assets
 node_modules
 src
-assets
+LICENSE
+package*
+*.md
+*.json
+*.js
+*.html
