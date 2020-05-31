@@ -8,7 +8,7 @@
     "compile": "tsc && webpack",
     "clean": "shx rm -rf _bundles lib",
     "build": "npm run clean && npm run compile",
-    "postinstall": "npm run compile"
+    "prepare": "npm run compile"
   },
   "author": "Kyle Nazario",
   "license": "MIT",
