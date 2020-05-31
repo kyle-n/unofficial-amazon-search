@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import {isBrowser} from 'browser-or-node';
+import {JSDOM} from 'jsdom';
+import AmazonSearchResult from './amazon-search-result';
 import htmlStringToDOMElement from './dom-parser';
 
 /**
@@ -15,9 +17,6 @@ if (isBrowser) {
   };
   window.SharedArrayBuffer = sab;
 }
-
-import {JSDOM} from 'jsdom';
-import AmazonSearchResult from './amazon-search-result';
 
 interface AllOriginsResponse {
   contents: string; // html string
