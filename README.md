@@ -5,6 +5,10 @@ A simple client for searching Amazon
 
 `npm install unofficial-amazon-search`
 
+or
+
+`yarn add unofficial-amazon-search`
+
 ## How to use
 
 `searchAmazon` returns `Promise<Array<AmazonSearchResult>>`.
@@ -23,7 +27,7 @@ searchAmazon('anything you would put in the search bar').then(results => {
 The above works in Node and frontend environments with compiled code.
 
 `unofficial-amazon-search` can also be imported from a `<script>` tag and used in raw JS. Importing it will attach the
-module to the `window` object.
+module to the `window` object. Browser queries are proxied through AllOrigins.win, a limit-free proxy, to avoid CORS issues.
 
 ```
 <!DOCTYPE html>
@@ -33,7 +37,7 @@ module to the `window` object.
   <meta charset="UTF-8">
 </head>
 <body></body>
-<script src="./_bundles/unofficial-amazon-search.js" rel="script"></script>
+<script src="path/to/unofficial-amazon-search/_bundles/unofficial-amazon-search.min.js" rel="script"></script>
 <script>
   var searchAmazon = window.UnofficialAmazonSearch.searchAmazon;
   searchAmazon('123').then(function (results) {
@@ -45,6 +49,8 @@ module to the `window` object.
 
 The bundle contains minified and non-minified bundles of the compiled search code.
 
+This is a Promise-based API and does not support callbacks, so you will have to roll your own solution for Internet Explorer.
+
 ## API
 
 ### Function `searchAmazon`
@@ -52,7 +58,7 @@ The bundle contains minified and non-minified bundles of the compiled search cod
 Parameters:
 
 - `query` - string that you'd put into the Amazon website search bar
-- `includeSponsoredResults` - boolean, optional, will prevent filtering out ads
+- `includeSponsoredResults` - optional boolean, setting `true` will include ads in results
 
 Returns an array of `AmazonSearchResult`.
 
