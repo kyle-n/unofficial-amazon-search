@@ -60,7 +60,7 @@ function queryToProxiedRequest(query: string): string {
  * @param {boolean=} includeSponsoredResults - Filters sponsored results by default
  * @returns {Promise<Array.<AmazonSearchResult>>}
  */
-export default async function searchAmazon(
+async function searchAmazon(
   query: string,
   includeSponsoredResults?: boolean
 ): Promise<AmazonSearchResult[]> {
@@ -81,3 +81,5 @@ export default async function searchAmazon(
   }
   return searchResults;
 }
+
+export default searchAmazon;
