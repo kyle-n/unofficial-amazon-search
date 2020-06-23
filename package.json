@@ -17,7 +17,15 @@
     "type": "git",
     "url": "git+https://github.com/kyle-n/unofficial-amazon-search.git"
   },
-  "keywords": [],
+  "keywords": [
+    "amazon",
+    "amazon products",
+    "amazon api",
+    "node",
+    "javascript",
+    "web scraping",
+    "scraping"
+  ],
   "bugs": {
     "url": "https://github.com/kyle-n/unofficial-amazon-search/issues"
   },
