@@ -1,10 +1,6 @@
 const path = require('path');
 
-module.exports = {
-  entry: {
-    'unofficial-amazon-search': './src/index.ts',
-    'unofficial-amazon-search.min': './src/index.ts',
-  },
+const sharedConfig = {
   output: {
     path: path.resolve(__dirname, '_bundles'),
     filename: '[name].js',
@@ -12,9 +8,6 @@ module.exports = {
     library: 'UnofficialAmazonSearch',
     umdNamedDefine: true
   },
-  devtool: 'source-map',
-  plugins: [
-  ],
   module: {
     rules: [
       {
@@ -27,8 +20,26 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
-  mode: 'production',
   externals: {
     jsdom: 'jsdom'
   }
-}
+};
+
+const devConfig = {
+  ...sharedConfig,
+  entry: {
+    'unofficial-amazon-search': './src/index.ts'
+  },
+  devtool: 'source-map',
+  mode: 'development'
+};
+
+const prodConfig = {
+  ...sharedConfig,
+  entry: {
+    'unofficial-amazon-search.min': './src/index.ts'
+  },
+  mode: 'production'
+};
+
+module.exports = [devConfig, prodConfig];
