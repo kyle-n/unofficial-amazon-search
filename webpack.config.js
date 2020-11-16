@@ -27,12 +27,6 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
-  node: {
-    'child_process': 'empty',
-    'fs': 'empty',
-    'net': 'empty',
-    'tls': 'empty'
-  },
   mode: 'production',
   externals: {
     jsdom: 'jsdom'
