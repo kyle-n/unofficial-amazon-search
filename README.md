@@ -75,16 +75,16 @@ Returns a `Promise<SearchData>`.
 
 ### Interface `SearchConfig`
 
-- `page`: - desired page of results
+- `page` - desired page of results
 - `includeSponsoredResults` - set `true` to include ads
 
 ### Interface `SearchData`
 
 An object with properties:
 
-- `searchResults`: `Array<AmazonSearchResult>`
-- `pageNumber`: Page number of current set of `searchResults`
-- `getNextPage`: If there is another page of results for the given query, this function returns a Promise for that next page. If there is no next page, this is undefined.
+- `searchResults` - `Array<AmazonSearchResult>`
+- `pageNumber` - Page number of current set of `searchResults`
+- `getNextPage` - If there is another page of results for the given query, this function returns a Promise for that next page. If there is no next page, this is undefined.
 
 ### Class `AmazonSearchResult`
 
