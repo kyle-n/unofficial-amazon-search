@@ -23,6 +23,8 @@ interface Rating {
  * @property {boolean} sponsored - whether result is an ad
  */
 export default class AmazonSearchResult {
+  private static domain = 'https://www.amazon.com';
+
   title: string;
   productUrl: string;
   imageUrl: string;
@@ -87,7 +89,15 @@ export default class AmazonSearchResult {
 
 
   get fullProductUrl(): string {
-    return 'https://www.amazon.com' + this.productUrl;
+    return AmazonSearchResult.domain + this.productUrl;
+  }
+
+  set fullProductUrl(productUrl: string) {
+    if (!productUrl.startsWith(AmazonSearchResult.domain)) {
+      throw new Error(`Values assigned to fullProductUrl must start with ${AmazonSearchResult.domain}, assign domainless paths to productUrl`);
+    }
+
+    this.productUrl = productUrl.substring(AmazonSearchResult.domain.length);
   }
 
 }
