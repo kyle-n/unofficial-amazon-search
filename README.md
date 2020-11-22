@@ -40,7 +40,7 @@ The above works in Node and frontend environments with compiled code.
 `unofficial-amazon-search` can also be imported from a `<script>` tag and used in raw JS. Importing it will attach the
 module to the `window` object. Browser queries are proxied through AllOrigins.win, a limit-free proxy, to avoid CORS issues.
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
