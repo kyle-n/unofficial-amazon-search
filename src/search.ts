@@ -70,6 +70,11 @@ interface SearchData {
   getNextPage?: () => Promise<SearchData>;
 }
 
+interface SearchConfig {
+  page: number;
+  includeSponsoredResults: boolean;
+}
+
 /**
  * @name searchAmazon
  * @description Scrapes the first page of Amazon search results
@@ -80,11 +85,10 @@ interface SearchData {
  */
 async function searchAmazon(
   query: string,
-  page?: number,
-  includeSponsoredResults?: boolean,
+  config?: Partial<SearchConfig>
 ): Promise<SearchData> {
 
-  const currentPage = page ?? 1;
+  const currentPage = config?.page ?? 1;
   const searchData: SearchData = {
     searchResults: [],
     pageNumber: currentPage,
@@ -93,12 +97,12 @@ async function searchAmazon(
   let documentNode: ParentNode;
 
   if (isBrowser) {
-    const resp: Response = await fetch(queryToProxiedRequest(query, page));
+    const resp: Response = await fetch(queryToProxiedRequest(query, config?.page));
     const body: AllOriginsResponse = await resp.json();
     const pageHtml = body.contents;
     documentNode = htmlStringToDOMElement(pageHtml);
   } else {
-    const resp: Response = await fetch(queryToRequest(query, page));
+    const resp: Response = await fetch(queryToRequest(query, config?.page));
     const pageHtml = await resp.text();
     const virtualDOM = new JSDOM(pageHtml);
     documentNode = virtualDOM.window.document;
@@ -106,11 +110,11 @@ async function searchAmazon(
 
   searchData.searchResults = extractResults(documentNode);
 
-  if (hasNextPage(documentNode, page)) {
-    searchData.getNextPage = () => searchAmazon(query, currentPage + 1, includeSponsoredResults);
+  if (hasNextPage(documentNode, config?.page)) {
+    searchData.getNextPage = () => searchAmazon(query, config);
   }
 
-  if (!includeSponsoredResults) {
+  if (!config?.includeSponsoredResults) {
     searchData.searchResults = searchData.searchResults.filter(result => !result.sponsored);
   }
   return searchData;
