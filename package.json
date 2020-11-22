@@ -1,6 +1,6 @@
 {
   "name": "unofficial-amazon-search",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A simple client for searching Amazon",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
