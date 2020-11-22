@@ -35,7 +35,7 @@ export default class AmazonSearchResult {
     if (!sponsorBlock) {
       return false;
     } else {
-      return sponsorBlock.parentElement?.parentElement?.textContent?.toLowerCase().includes('sponsored') || false;
+      return sponsorBlock.parentElement?.parentElement?.textContent?.toLowerCase().includes('sponsored') ?? false;
     }
   }
 
@@ -46,13 +46,13 @@ export default class AmazonSearchResult {
     ) as HTMLSpanElement[];
     const priceStrings: Array<string | undefined> = Array.from(
       block.querySelectorAll('.a-price-whole')
-    ).map(elem => elem.parentElement?.textContent?.trim() || '');
+    ).map(elem => elem.parentElement?.textContent?.trim() ?? '');
     return priceStrings.reduce((prices: Price[], priceString: string | undefined, i: number) => {
       let subhead: Element | undefined;
       if (i < subheads.length) {
         subhead = subheads[i];
       }
-      const key: string = subhead?.textContent?.trim() || '';
+      const key: string = subhead?.textContent?.trim() ?? '';
       if (priceString) {
         prices.push({
           price: parseFloat(priceString.replace(/[^\d.]/g, '')),
@@ -65,7 +65,7 @@ export default class AmazonSearchResult {
 
   private static extractRating(block: Element): Rating {
     const numbers = block.querySelector('i.a-icon-star-small')?.textContent?.match(/\d(\.\d)?/g)
-      ?.map(match => parseFloat(match)) || [-1, -1];
+      ?.map(match => parseFloat(match)) ?? [-1, -1];
     switch (numbers.length) {
       case 0:
         return {score: -1, outOf: -1}
@@ -77,9 +77,9 @@ export default class AmazonSearchResult {
   }
 
   constructor(block: Element) {
-    this.title = block.querySelector('h2')?.textContent?.trim() || '';
-    this.imageUrl = block.querySelector('a img')?.getAttribute('src') || '';
-    this.productUrl = block.querySelector('a')?.getAttribute('href') || '';
+    this.title = block.querySelector('h2')?.textContent?.trim() ?? '';
+    this.imageUrl = block.querySelector('a img')?.getAttribute('src') ?? '';
+    this.productUrl = block.querySelector('a')?.getAttribute('href') ?? '';
     this.rating = AmazonSearchResult.extractRating(block);
     this.prices = AmazonSearchResult.extractPrices(block);
     this.sponsored = AmazonSearchResult.extractIsSponsored(block);
