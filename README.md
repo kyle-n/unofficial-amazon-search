@@ -26,7 +26,7 @@ searchAmazon('anything you would put in the search bar').then(data => {
 
 // load other pages by specifying a page number
 // or calling getNextPage()
-searchAmazon('mad max', 2).then(data => {
+searchAmazon('mad max', {page: 2, includeSponsoredResults: true}).then(data => {
   console.log(data.pageNumber)    // 2
   console.log(data.searchResults) // (page 2 results)
   return data.getNextPage();
@@ -69,10 +69,14 @@ This is a Promise-based API and does not support callbacks, so you will have to 
 Parameters:
 
 - `query` - string that you'd put into the Amazon website search bar
-- `page` - optional number, use to select a page of results
-- `includeSponsoredResults` - optional boolean, setting `true` will include ads in results
+- `config` - optional object, can specify any (or none) of the properties on `SearchConfig`.
 
-Returns a `Promise<SearchData>`
+Returns a `Promise<SearchData>`.
+
+### Interface `SearchConfig`
+
+- `page`: - desired page of results
+- `includeSponsoredResults` - set `true` to include ads
 
 ### Interface `SearchData`
 
