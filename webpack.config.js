@@ -8,17 +8,8 @@ const sharedConfig = {
     library: 'UnofficialAmazonSearch',
     umdNamedDefine: true
   },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        loader: 'ts-loader',
-        exclude: '/node_modules/'
-      }
-    ]
-  },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.js']
   },
   externals: {
     jsdom: 'jsdom'
@@ -28,7 +19,7 @@ const sharedConfig = {
 const devConfig = {
   ...sharedConfig,
   entry: {
-    'unofficial-amazon-search': './src/index.ts'
+    'unofficial-amazon-search': './lib/index.js'
   },
   devtool: 'source-map',
   mode: 'development'
@@ -37,7 +28,7 @@ const devConfig = {
 const prodConfig = {
   ...sharedConfig,
   entry: {
-    'unofficial-amazon-search.min': './src/index.ts'
+    'unofficial-amazon-search.min': './lib/index.js'
   },
   mode: 'production'
 };
