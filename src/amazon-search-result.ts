@@ -23,12 +23,12 @@ interface Rating {
  * @property {boolean} sponsored - whether result is an ad
  */
 export default class AmazonSearchResult {
-  private _title: string = '';
-  private _productUrl: string = '';
-  private _imageUrl: string = '';
-  private _rating: Rating = {score: null, outOf: null};
-  private _prices: Price[] = [];
-  private _sponsored: boolean = false;
+  title: string;
+  productUrl: string;
+  imageUrl: string;
+  rating: Rating = {score: null, outOf: null};
+  prices: Price[] = [];
+  sponsored = false;
 
   private static extractIsSponsored(block: Element): boolean {
     const sponsorBlock = block.querySelector('.s-info-icon');
@@ -85,46 +85,9 @@ export default class AmazonSearchResult {
     this.sponsored = AmazonSearchResult.extractIsSponsored(block);
   }
 
-  get title(): string {
-    return this._title;
-  }
-  set title(title: string) {
-    this._title = title;
-  }
 
-  get productUrl(): string {
-    return 'https://www.amazon.com' + this._productUrl;
-  }
-  set productUrl(productUrl: string) {
-    this._productUrl = productUrl;
-  }
-
-  get imageUrl(): string {
-    return this._imageUrl;
-  }
-  set imageUrl(imageUrl: string) {
-    this._imageUrl = imageUrl;
-  }
-
-  get rating(): Rating {
-    return this._rating;
-  }
-  set rating(rating: Rating) {
-    this._rating = rating;
-  }
-
-  get prices(): Price[] {
-    return this._prices;
-  }
-  set prices(prices: Price[]) {
-    this._prices = prices;
-  }
-
-  get sponsored(): boolean {
-    return this._sponsored;
-  }
-  set sponsored(sponsored: boolean) {
-    this._sponsored = sponsored;
+  get fullProductUrl(): string {
+    return 'https://www.amazon.com' + this.productUrl;
   }
 
 }
