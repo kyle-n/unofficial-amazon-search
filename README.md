@@ -11,16 +11,27 @@ or
 
 ## How to use
 
-`searchAmazon` returns `Promise<Array<AmazonSearchResult>>`.
+`searchAmazon` returns `Promise<SearchData>`.
 
-```
+```typescript
 import {searchAmazon, AmazonSearchResult} from 'unofficial-amazon-search';
 // OR
 const {searchAmazon, AmazonSearchResult} = require('unofficial-amazon-search');
 
-searchAmazon('anything you would put in the search bar').then(results => {
-  console.log(results);
-  console.log(results[0].title, results[0].imageUrl);
+searchAmazon('anything you would put in the search bar').then(data => {
+  console.log(data);
+  console.log(data.pageNumber)    // 1
+  console.log(data.searchResults[0].title, data.searchResults[0].imageUrl);
+});
+
+// load other pages by specifying a page number
+// or calling getNextPage()
+searchAmazon('mad max', 2).then(data => {
+  console.log(data.pageNumber)    // 2
+  console.log(data.searchResults) // (page 2 results)
+  return data.getNextPage();
+}).then(data => {
+  console.log(data.searchResults) // (page 3 results)
 });
 ```
 
@@ -40,8 +51,8 @@ module to the `window` object. Browser queries are proxied through AllOrigins.wi
 <script src="path/to/unofficial-amazon-search/_bundles/unofficial-amazon-search.min.js" rel="script"></script>
 <script>
   var searchAmazon = window.UnofficialAmazonSearch.searchAmazon;
-  searchAmazon('123').then(function (results) {
-    console.log(results);
+  searchAmazon('123').then(function (data) {
+    console.log(data.searchResults);
   });
 </script>
 </html>
@@ -58,9 +69,18 @@ This is a Promise-based API and does not support callbacks, so you will have to 
 Parameters:
 
 - `query` - string that you'd put into the Amazon website search bar
+- `page` - optional number, use to select a page of results
 - `includeSponsoredResults` - optional boolean, setting `true` will include ads in results
 
-Returns an array of `AmazonSearchResult`.
+Returns a `Promise<SearchData>`
+
+### Interface `SearchData`
+
+An object with properties:
+
+- `searchResults`: `Array<AmazonSearchResult>`
+- `pageNumber`: Page number of current set of `searchResults`
+- `getNextPage`: If there is another page of results for the given query, this function returns a Promise for that next page. If there is no next page, this is undefined.
 
 ### Class `AmazonSearchResult`
 
