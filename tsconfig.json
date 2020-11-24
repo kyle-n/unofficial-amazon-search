@@ -15,5 +15,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "alwaysStrict": true
-  }
+  },
+  "exclude": [
+    "tests"
+  ]
 }
