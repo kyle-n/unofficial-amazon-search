@@ -33,7 +33,7 @@ export default class AmazonSearchResult {
   sponsored = false;
 
   private static extractIsSponsored(block: Element): boolean {
-    const sponsorBlock = block.querySelector('.s-info-icon');
+    const sponsorBlock = block.querySelector('.s-sponsored-label-info-icon');
     if (!sponsorBlock) {
       return false;
     } else {
