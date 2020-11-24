@@ -18,7 +18,7 @@ if (isBrowser) {
   window.SharedArrayBuffer = sab;
 }
 
-interface AllOriginsResponse {
+export interface AllOriginsResponse {
   contents: string; // html string
   status: {
     content_length: null;
@@ -64,13 +64,13 @@ function hasNextPage(elem: ParentNode, currentPage?: number): boolean {
   return Boolean(nextLink);
 }
 
-interface SearchData {
+export interface SearchData {
   searchResults: Array<AmazonSearchResult>;
   pageNumber: number;
   getNextPage?: () => Promise<SearchData>;
 }
 
-interface SearchConfig {
+export interface SearchConfig {
   page: number;
   includeSponsoredResults: boolean;
 }
