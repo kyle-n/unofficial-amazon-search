@@ -1,5 +1,6 @@
 import {AmazonSearchResult} from '../src';
 import getSampleResult from './SampleResultHtml';
+import getSampleSponsoredResultHtml from './sample-sponsored-result';
 
 describe('AmazonSearchResult', () => {
 
@@ -38,7 +39,7 @@ describe('AmazonSearchResult', () => {
     expect(sampleResult.rating).toEqual({score: 4.7, outOf: 5});
   });
 
-  it('finds if sponsored', () => {
+  it('finds if not sponsored', () => {
     expect(sampleResult.sponsored).toBe(false);
   });
 
@@ -65,6 +66,13 @@ describe('AmazonSearchResult', () => {
 
   it('finds the prices', () => {
     expect(sampleResult.prices).toEqual([{price: 12.99, label: null}]);
+  });
+
+  it('can tell if it is sponsored', () => {
+    const element = document.createElement('div');
+    element.innerHTML = getSampleSponsoredResultHtml();
+    const sponsoredSample = new AmazonSearchResult(element);
+    expect(sponsoredSample.sponsored).toBe(true);
   });
 
 });
