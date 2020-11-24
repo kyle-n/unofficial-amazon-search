@@ -2,5 +2,4 @@ lib*
 _bundles
 node_modules
 .idea
-*.html
 .DS_Store
