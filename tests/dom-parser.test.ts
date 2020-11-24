@@ -1,5 +1,5 @@
 import htmlStringToDOMElement from '../src/dom-parser';
-import getSampleResult from './SampleResultHtml';
+import getSampleResult from './sample-result-html';
 
 describe('dom-parser', () => {
 

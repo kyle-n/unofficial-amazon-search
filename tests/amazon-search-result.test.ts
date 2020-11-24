@@ -1,5 +1,5 @@
 import {AmazonSearchResult} from '../src';
-import getSampleResult from './SampleResultHtml';
+import getSampleResult from './sample-result-html';
 import getSampleSponsoredResultHtml from './sample-sponsored-result';
 
 describe('AmazonSearchResult', () => {
