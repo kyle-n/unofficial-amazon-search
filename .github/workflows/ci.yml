@@ -49,6 +49,7 @@ jobs:
           printf "const {searchAmazon} = require('unofficial-amazon-search');\nsearchAmazon('lamp').then(data => console.log(data.searchResults.length > 0));" > server.js
       - name: Test Amazon connection
         run: |
+          cd tester
           node server.js | grep 'true' &> /dev/null
           if [ $? == 0 ];
           then
