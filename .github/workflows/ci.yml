@@ -9,13 +9,13 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  unit:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -25,3 +25,36 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm test
+
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup test project
+        run: |
+          npm link
+          mkdir tester
+          cd tester
+          npm init -y
+          npm link unofficial-amazon-search
+          touch server.js
+          printf "const {searchAmazon} = require('unofficial-amazon-search');\nsearchAmazon('lamp').then(data => console.log(data.searchResults.length > 0));" > server.js
+      - name: Test Amazon connection
+        run: |
+          cd tester
+          node server.js | grep 'true' &> /dev/null
+          if [ $? == 0 ];
+          then
+            echo "Passed"
+          else
+            echo "No results returned"
+            exit 1
+          fi
