@@ -1,6 +1,6 @@
 {
   "name": "unofficial-amazon-search",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "A simple client for searching Amazon",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -10,7 +10,8 @@
     "build": "npm run clean && npm run compile",
     "prepare": "npm run clean && npm run compile",
     "preview-npm-files": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
-    "test": "jest -c tests/jest.config.js"
+    "test": "jest -c tests/jest.config.js",
+    "e2e": "tests/e2e.sh"
   },
   "author": "Kyle Nazario",
   "license": "MIT",
