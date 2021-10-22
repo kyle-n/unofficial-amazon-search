@@ -1,6 +1,6 @@
 import {searchAmazon, AmazonSearchResult} from '../src';
 
-fdescribe('searchAmazon', () => {
+describe('searchAmazon', () => {
 
   const anySponsored = (searchResults: AmazonSearchResult[]): boolean => {
     return searchResults.reduce((atLeastOneSponsored, result) => {
