@@ -1,6 +1,10 @@
+/**
+ * @jest-environment node
+ */
+
 import {searchAmazon, AmazonSearchResult} from '../src';
 
-describe('searchAmazon', () => {
+fdescribe('searchAmazon', () => {
 
   const anySponsored = (searchResults: AmazonSearchResult[]): boolean => {
     return searchResults.reduce((atLeastOneSponsored, result) => {
