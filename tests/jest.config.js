@@ -11,5 +11,6 @@ module.exports = {
     "^.+\\.ts$": "ts-jest"
   },
   "testEnvironment": 'jsdom',
-  "setupFilesAfterEnv": ['./tests/setup.js']
+  "setupFilesAfterEnv": ['./tests/setup.js'],
+  "automock": false
 }

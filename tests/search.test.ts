@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 import {searchAmazon, AmazonSearchResult} from '../src';
 
 fdescribe('searchAmazon', () => {
