@@ -50,7 +50,7 @@ function queryToRequest(query: string, page?: number): string {
   ];
   if (page && page > 1) queryParams.push(`page=${page}`)
 
-  return `https://www.amazon.com/s?${queryParams.join('&')}`;
+  return `https://www.amazon.co.jp/s?${queryParams.join('&')}`;
 }
 
 function queryToProxiedRequest(query: string, page?: number): string {
